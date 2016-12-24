@@ -4,8 +4,6 @@ class CreateTrips < ActiveRecord::Migration[5.0]
       t.references :route, foreign_key: true
       t.string :trip_headsign
       t.binary :direction_id
-
-      t.timestamps
     end
   end
 end
