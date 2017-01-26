@@ -8,7 +8,11 @@ task :tripsroutesstops => :environment do
     trip = create_trip(obj)
     route = create_route(trip.route_id)
     route_stop = find_route_stop(route.id)
-    create_route_stops(route_stop)
+    if route_stop
+      create_route_stops(route_stop)
+    else
+      puts obj
+    end
     create_stops(route_stop["stop_ids"])
   end
 
