@@ -8,11 +8,7 @@ task :tripsroutesstops => :environment do
     trip = create_trip(obj)
     route = create_route(trip.route_id)
     route_stop = find_route_stop(route.id)
-    if route_stop
-      create_route_stops(route_stop)
-    else
-      puts obj
-    end
+    create_route_stops(route_stop)
     create_stops(route_stop["stop_ids"])
   end
 
@@ -30,10 +26,10 @@ def create_route route_id
   Route.find_or_create_by(id: route_id)
 end
 
-@route_stops = parse_json('route_stops')
+@route_stops = parse_json('routes')
 
 def find_route_stop route_id
-  @route_stops.select {|obj| obj["route_id"] == route_id }.first
+  @route_stops.select {|obj| obj["route_id"] == "#{route_id}" }.first
 end
 
 def create_route_stops route_stop
