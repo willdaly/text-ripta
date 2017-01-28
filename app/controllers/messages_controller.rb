@@ -11,7 +11,7 @@ class MessagesController < ApplicationController
     end
 
     def message posted_text
-      Message.new(posted_text).text
+      Message.new(posted_text: posted_text).text
     end
 
 end
