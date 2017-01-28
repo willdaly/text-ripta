@@ -2,7 +2,7 @@ class TwilioService
   attr_reader :client
 
   def initialize
-    @client = Twilio::REST::Client.new Rails.application.secrets.account_sid, Rails.application.secrets.auth_token
+    @client = Twilio::REST::Client.new ENV['ACCOUNT_SID'], ENV['AUTH_TOKEN']
   end
 
   def send_message(to, message)
