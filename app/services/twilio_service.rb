@@ -7,7 +7,7 @@ class TwilioService
 
   def send_message(to, message)
     client.messages.create(
-      from: Rails.application.secrets.twilio_number,
+      from: ENV['TWILIO_NUMBER'],
       to: to,
       body: message
     )
