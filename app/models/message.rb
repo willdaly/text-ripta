@@ -16,7 +16,7 @@ class Message < ApplicationRecord
 
   def success
     vehicles = VehiclePositionsService.new(stop.trip_ids).new_vehicles
-    selected_vehicles = vehicles.select {|vehicle| vehicle.stops_away(stop)}
+    selected_vehicles = vehicles.select {|vehicle| vehicle.stops_away(stop) > 0}
     sorted_vehicles = selected_vehicles.sort_by do |vehicle|
       vehicle.stops_away(stop)
     end
