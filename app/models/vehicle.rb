@@ -7,14 +7,12 @@ class Vehicle < ApplicationRecord
   def stops_away user_stop
     usi = user_stop_index(user_stop)
     csi = current_stop_index
-    usi > csi ? usi - csi : nil
+    usi - csi
   end
 
   def stops_away_string user_stop
-    usi = user_stop_index(user_stop)
-    csi = current_stop_index
-    distance = usi - csi
-    usi > csi ? "#{trip.trip_headsign} is #{distance} #{stop_or_stops(distance)} away" : nil
+    distance = stops_away(user_stop)
+    distance > 0 ? "#{trip.trip_headsign} is #{distance} #{stop_or_stops(distance)} away" : nil
   end
 
   private
