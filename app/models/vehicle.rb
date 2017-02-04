@@ -3,16 +3,12 @@ class Vehicle < ApplicationRecord
   belongs_to :route
   belongs_to :stop
   has_many :stops, :through => :trip
+  attr_reader :user_stop
 
   def stops_away user_stop
     usi = user_stop_index(user_stop)
     csi = current_stop_index
-    usi - csi
-  end
-
-  def stops_away_string user_stop
-    distance = stops_away(user_stop)
-    distance > 0 ? "#{trip.trip_headsign} is #{distance} #{stop_or_stops(distance)} away" : nil
+    @stops_away = usi - csi
   end
 
   private
@@ -23,10 +19,6 @@ class Vehicle < ApplicationRecord
 
   def current_stop_index
     stops.index(stop)
-  end
-
-  def stop_or_stops distance
-    distance == 1 ? "stop" : "stops"
   end
 
 end
