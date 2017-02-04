@@ -1,7 +1,5 @@
-require 'test_helper'
+require 'minitest/autorun'
 
-class StopTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+class StopTest < MiniTest::Test
+  
 end

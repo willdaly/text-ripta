@@ -1,7 +1,12 @@
 class Message < ApplicationRecord
+  attr_accessor :vps
 
   def text
-    stop ? success : "couldn't find a stop by the ID " + self.posted_text
+    stop ? success : "not found: stop ID " + self.posted_text
+  end
+
+  def vps
+    @vps = VehiclePositionsService.new(stop)
   end
 
   private
@@ -11,9 +16,8 @@ class Message < ApplicationRecord
   end
 
   def success
-    statuses = status_updates
     if statuses.empty?
-      "found no updates on buses stopping at #{self.posted_text}"
+      no_news
     elsif statuses.count == 1
       statuses.first
     else
@@ -21,16 +25,21 @@ class Message < ApplicationRecord
     end
   end
 
-  def status_updates
-    vps.response.empty? ? ["empty API response"] : stops_away_strings
+  def no_news
+    vps.response.empty? ? "empty API response" : "no buses stopping at #{self.posted_text}"
   end
 
-  def vps
-    @vps = VehiclePositionsService.new(stop)
+  def statuses
+    @statuses = vps.sorted_vehicles.map{|vehicle| status_update(vehicle)}
   end
 
-  def stops_away_strings
-    vps.sorted_vehicles.map{|vehicle| vehicle.stops_away_string(stop)}
+  def status_update vehicle
+    distance = vehicle.stops_away(stop)
+    "#{vehicle.trip.trip_headsign} is #{distance} #{stop_or_stops(distance)} away"
+  end
+
+  def stop_or_stops distance
+    distance == 1 ? "stop" : "stops"
   end
 
 end
