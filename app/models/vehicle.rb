@@ -3,7 +3,7 @@ class Vehicle < ApplicationRecord
   belongs_to :route
   belongs_to :stop
   has_many :stops, :through => :trip
-  attr_reader :user_stop
+  attr_reader :stops_away
 
   def stops_away user_stop
     usi = user_stop_index(user_stop)

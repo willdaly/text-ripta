@@ -35,7 +35,7 @@ class Message < ApplicationRecord
 
   def status_update vehicle
     distance = vehicle.stops_away(stop)
-    "#{trip.trip_headsign} is #{distance} #{stop_or_stops(distance)} away"
+    "#{vehicle.trip.trip_headsign} is #{distance} #{stop_or_stops(distance)} away"
   end
 
   def stop_or_stops distance
