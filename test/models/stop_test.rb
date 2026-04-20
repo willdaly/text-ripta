@@ -1,5 +1,5 @@
-require 'minitest/autorun'
+require 'test_helper'
 
-class StopTest < MiniTest::Test
+class StopTest < ActiveSupport::TestCase
   
 end

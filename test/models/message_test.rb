@@ -1,6 +1,6 @@
-require 'minitest/autorun'
+require 'test_helper'
 
-class MessageTest < MiniTest::Test
+class MessageTest < ActiveSupport::TestCase
   def setup
     @non_num = Message.new(posted_text: "where is my bus???")
     @invalid_num = Message.new(posted_text: "0")
